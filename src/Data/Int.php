@@ -20,7 +20,7 @@ $toNumber = function($n) use (&$toNumber) {
 $fromStringAsImpl = function($just, $nothing = null, $radix = null, $s = null) use (&$fromStringAsImpl) {
     if (func_num_args() < 4) {
         $__args = func_get_args();
-        return function(...$more) use ($__args, &$toNumber) {
+        return function(...$more) use ($__args, &$fromStringAsImpl) {
 
             return $fromStringAsImpl(...array_merge($__args, $more));
         };
@@ -46,7 +46,7 @@ $fromStringAsImpl = function($just, $nothing = null, $radix = null, $s = null) u
 $toStringAs = function($radix, $i = null) use (&$toStringAs) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args, &$fromStringAsImpl) {
+        return function(...$more) use ($__args, &$toStringAs) {
 
             return $toStringAs(...array_merge($__args, $more));
         };
@@ -57,7 +57,7 @@ $toStringAs = function($radix, $i = null) use (&$toStringAs) {
 $quot = function($x, $y = null) use (&$quot) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args, &$toStringAs) {
+        return function(...$more) use ($__args, &$quot) {
 
             return $quot(...array_merge($__args, $more));
         };
@@ -68,7 +68,7 @@ $quot = function($x, $y = null) use (&$quot) {
 $rem = function($x, $y = null) use (&$rem) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args, &$quot) {
+        return function(...$more) use ($__args, &$rem) {
 
             return $rem(...array_merge($__args, $more));
         };
@@ -79,7 +79,7 @@ $rem = function($x, $y = null) use (&$rem) {
 $pow = function($x, $y = null) use (&$pow) {
     if (func_num_args() < 2) {
         $__args = func_get_args();
-        return function(...$more) use ($__args, &$rem) {
+        return function(...$more) use ($__args, &$pow) {
 
             return $pow(...array_merge($__args, $more));
         };
