@@ -1,11 +1,11 @@
 <?php
 
 $fromNumberImpl = function($just, $nothing = null, $n = null) use (&$fromNumberImpl) {
-    if (func_num_args() < 3) {
-        $__args = func_get_args();
+    if (\func_num_args() < 3) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$fromNumberImpl) {
 
-            return $fromNumberImpl(...array_merge($__args, $more));
+            return $fromNumberImpl(...\array_merge($__args, $more));
         };
     }
     // JS bitwise OR 0 limits to 32-bit signed integer. 
@@ -18,11 +18,11 @@ $toNumber = function($n) use (&$toNumber) {
 };
 
 $fromStringAsImpl = function($just, $nothing = null, $radix = null, $s = null) use (&$fromStringAsImpl) {
-    if (func_num_args() < 4) {
-        $__args = func_get_args();
+    if (\func_num_args() < 4) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$fromStringAsImpl) {
 
-            return $fromStringAsImpl(...array_merge($__args, $more));
+            return $fromStringAsImpl(...\array_merge($__args, $more));
         };
     }
     
@@ -44,44 +44,44 @@ $fromStringAsImpl = function($just, $nothing = null, $radix = null, $s = null) u
 };
 
 $toStringAs = function($radix, $i = null) use (&$toStringAs) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$toStringAs) {
 
-            return $toStringAs(...array_merge($__args, $more));
+            return $toStringAs(...\array_merge($__args, $more));
         };
     }
     return base_convert($i, 10, $radix);
 };
 
 $quot = function($x, $y = null) use (&$quot) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$quot) {
 
-            return $quot(...array_merge($__args, $more));
+            return $quot(...\array_merge($__args, $more));
         };
     }
     return intdiv($x, $y);
 };
 
 $rem = function($x, $y = null) use (&$rem) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$rem) {
 
-            return $rem(...array_merge($__args, $more));
+            return $rem(...\array_merge($__args, $more));
         };
     }
     return $x % $y;
 };
 
 $pow = function($x, $y = null) use (&$pow) {
-    if (func_num_args() < 2) {
-        $__args = func_get_args();
+    if (\func_num_args() < 2) {
+        $__args = \func_get_args();
         return function(...$more) use ($__args, &$pow) {
 
-            return $pow(...array_merge($__args, $more));
+            return $pow(...\array_merge($__args, $more));
         };
     }
     return intval(pow($x, $y));
