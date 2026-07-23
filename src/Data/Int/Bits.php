@@ -67,7 +67,7 @@ $zshr = function($n1, $n2 = null) use (&$zshr) {
     return ($n1 >> $n2) & (0x7fffffff >> ($n2 - 1));
 };
 
-$complement = function($n) use (&$complement) {
+$complement = function($n) {
     return ~$n;
 };
 

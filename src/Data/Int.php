@@ -13,7 +13,7 @@ $fromNumberImpl = function($just, $nothing = null, $n = null) use (&$fromNumberI
     return (intval($n) == $n) ? $just(intval($n)) : $nothing;
 };
 
-$toNumber = function($n) use (&$toNumber) {
+$toNumber = function($n) {
     return floatval($n);
 };
 
