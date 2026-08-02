@@ -1,6 +1,1 @@
-package:
-  name: "integers"
-  dependencies:
-    - maybe
-    - numbers
-    - prelude
+spago.php.yaml
