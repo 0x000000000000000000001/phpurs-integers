@@ -19,17 +19,31 @@ $fromStringAsImpl = function($just, $nothing, $radix, $s) use (&$fromStringAsImp
     } else {
         $digits = "[0-9a-" . chr(86 + $radix) . "]";
     }
-    $pattern = "/^[\+\-]?" . $digits . "+$/i";
-
-    if (preg_match($pattern, $s)) {
-        $i = intval(base_convert($s, $radix, 10));
-        return $just($i);
+    $pattern = "/^([\+\-]?)(" . $digits . "+)$/i";
+    
+    if (preg_match($pattern, $s, $matches)) {
+        $sign = $matches[1];
+        $unsignedS = $matches[2];
+        
+        // Use floatval here because base_convert can return values larger than PHP's int max
+        // on 32-bit systems, and we want to correctly reject them.
+        $i = floatval(base_convert($unsignedS, $radix, 10));
+        if ($sign === '-') {
+            $i = -$i;
+        }
+        if ($i < -2147483648 || $i > 2147483647) {
+            return $nothing;
+        }
+        return $just((int)$i);
     } else {
         return $nothing;
     }
 };
 
 $toStringAs = function($radix, $i) use (&$toStringAs) {
+    if ($i < 0) {
+        return "-" . base_convert(-$i, 10, $radix);
+    }
     return base_convert($i, 10, $radix);
 };
 

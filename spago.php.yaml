@@ -59,8 +59,6 @@ workspace:
       path: "../phpurs-free"
     functions:
       path: "../phpurs-functions"
-    integers:
-      path: "../phpurs-integers"
     js-promise:
       path: "../phpurs-js-promise"
     js-promise-aff:
