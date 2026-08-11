@@ -3,7 +3,7 @@
 $fromNumberImpl = function($just, $nothing, $n) use (&$fromNumberImpl) {
     if (!is_numeric($n) || is_nan($n) || is_infinite($n)) return $nothing;
     if ($n < PHP_INT_MIN || $n > PHP_INT_MAX) return $nothing;
-    return (intval($n) == $n) ? $just(intval($n)) : $nothing;
+    return (@intval($n) == $n) ? $just(@intval($n)) : $nothing;
 };
 
 $toNumber = function($n) {
@@ -56,7 +56,7 @@ $rem = function($x, $y) use (&$rem) {
 };
 
 $pow = function($x, $y) use (&$pow) {
-    return intval(pow($x, $y));
+    return @intval(pow($x, $y));
 };
 
 $exports['fromNumberImpl'] = $fromNumberImpl;
