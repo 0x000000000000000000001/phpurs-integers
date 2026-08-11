@@ -1,8 +1,8 @@
 <?php
 
 $fromNumberImpl = function($just, $nothing, $n) use (&$fromNumberImpl) {
-    // JS bitwise OR 0 limits to 32-bit signed integer. 
-    // PHP integers are typically 64-bit, but to match JS semantics we can just cast to int.
+    if (!is_numeric($n) || is_nan($n) || is_infinite($n)) return $nothing;
+    if ($n < PHP_INT_MIN || $n > PHP_INT_MAX) return $nothing;
     return (intval($n) == $n) ? $just(intval($n)) : $nothing;
 };
 
