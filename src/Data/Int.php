@@ -1,30 +1,33 @@
 <?php
 
-$fromNumberImpl = function($just, $nothing, $n) use (&$fromNumberImpl) {
-    if (!is_numeric($n) || is_nan($n) || is_infinite($n)) return $nothing;
-    if ($n < PHP_INT_MIN || $n > PHP_INT_MAX) return $nothing;
-    return (@intval($n) == $n) ? $just(@intval($n)) : $nothing;
+$fromNumberImpl = function ($just, $nothing, $n) {
+    if (!is_numeric($n) || is_nan($n) || is_infinite($n)) {
+        return $nothing;
+    }
+    if ($n < PHP_INT_MIN || $n > PHP_INT_MAX) {
+        return $nothing;
+    }
+    return @intval($n) == $n ? $just(@intval($n)) : $nothing;
 };
 
-$toNumber = function($n) {
+$toNumber = function ($n) {
     return floatval($n);
 };
 
-$fromStringAsImpl = function($just, $nothing, $radix, $s) use (&$fromStringAsImpl) {
-    
+$fromStringAsImpl = function ($just, $nothing, $radix, $s) {
     if ($radix < 11) {
-        $digits = "[0-" . ($radix - 1) . "]";
-    } else if ($radix === 11) {
-        $digits = "[0-9a]";
+        $digits = '[0-' . ($radix - 1) . ']';
+    } elseif ($radix === 11) {
+        $digits = '[0-9a]';
     } else {
-        $digits = "[0-9a-" . chr(86 + $radix) . "]";
+        $digits = '[0-9a-' . chr(86 + $radix) . ']';
     }
-    $pattern = "/^([\+\-]?)(" . $digits . "+)$/i";
-    
+    $pattern = '/^([\+\-]?)(' . $digits . "+)$/i";
+
     if (preg_match($pattern, $s, $matches)) {
         $sign = $matches[1];
         $unsignedS = $matches[2];
-        
+
         // Use floatval here because base_convert can return values larger than PHP's int max
         // on 32-bit systems, and we want to correctly reject them.
         $i = floatval(base_convert($unsignedS, $radix, 10));
@@ -34,28 +37,28 @@ $fromStringAsImpl = function($just, $nothing, $radix, $s) use (&$fromStringAsImp
         if ($i < -2147483648 || $i > 2147483647) {
             return $nothing;
         }
-        return $just((int)$i);
+        return $just((int) $i);
     } else {
         return $nothing;
     }
 };
 
-$toStringAs = function($radix, $i) use (&$toStringAs) {
+$toStringAs = function ($radix, $i) {
     if ($i < 0) {
-        return "-" . base_convert(-$i, 10, $radix);
+        return '-' . base_convert(-$i, 10, $radix);
     }
     return base_convert($i, 10, $radix);
 };
 
-$quot = function($x, $y) use (&$quot) {
+$quot = function ($x, $y) {
     return intdiv($x, $y);
 };
 
-$rem = function($x, $y) use (&$rem) {
+$rem = function ($x, $y) {
     return $x % $y;
 };
 
-$pow = function($x, $y) use (&$pow) {
+$pow = function ($x, $y) {
     return @intval(pow($x, $y));
 };
 
